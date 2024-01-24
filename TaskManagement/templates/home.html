@@ -1,0 +1,34 @@
+{% extends 'base.html' %}\
+
+{% block content %}
+<div class="d-flex d-wrap justify-content-center row p-5 " style="margin: auto;">
+{% for task in tasks %}
+
+    <div class="col-sm-2 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{task.title}}</h5>
+          <p class="card-text">{{task.description}}</p>
+          <p>Category: </p>
+          {% for cat in task.category.all %}
+          <button class="btn btn-primary btn-sm btn-2" disabled style="padding: 2px;">{{cat.name}}</button>
+          {% endfor %}
+          <br>
+          <div style="padding-top: 10px;margin: auto;" class="justify-content-center">
+            {% if not task.complete %}
+            <a class="btn btn-warning" href="{% url 'edit_task' task.id %}">Edit</a>
+            <a class="btn btn-danger "  href="{% url 'delete_task' task.id %} ">Delete</a>
+            {% else %}
+            <button class="btn btn-success " style="margin:auto;" >Completed</button>
+            {% endif %}
+          </div>
+         
+
+        </div>
+      </div>
+   
+ 
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
